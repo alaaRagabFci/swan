@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'title'             => 'EAP',
+    'home'              => 'Home',
+    'services'          => 'Services',
+    'projects'          => 'Projects',
+    'expertises'        => 'Expertises',
+    'consultancy'       => 'Consultancy Approach',
+    'managment'         => 'Quality Management',
+    'clients'           => 'Clients & Partners',
+    'news'              => 'News & Publications',
+    'contactUs'         => 'Contact Us',
+    'about_us'          => 'About Us',
+    'expertises_services_projects'          => 'Expertise, Services& Projects',
+    'company'          => 'COMPANY',
+    'allRightsReserved'=> 'All Rights Reserved',
+    'newsLetter'=> 'NEWSLETTER',
+    'emailAddress'     => 'Your email address',
+    'sendMessage'     => 'SEND MESSAGE',
+    'contactDetails'     => 'CONTACT DETAILS',
+    'clients1'   => 'Technical Assistance and Financing',
+    'partners1'   => 'Some Beneficiary Organizations',
+    'contactUsForPublications' => 'CONTACT US FOR PUBLICATIONS',
+    'name' => 'Name',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'details' => 'Details',
+    'send' => 'SEND MESSAGE'
+];

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "swan-app-caa56",
+  "private_key_id": "aeaa986eba8cb610ccafa466f2400870b2af3a41",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDST/bmNOrWHD7f\nz1WKdAaeQCDDFg4RwDa4bJxpVhFPA3fgQisfbRAKBtVPdwtxADoO+8+fTTTrJCUA\ndk084O8bU19wFJkvLS6XEdfkHEFOv3SGTO8u0dhpeNZx4CM2qUVp0xm5wwUfBJ1y\nrs4YcUMqHZ2j/UdYav/NTzqYmpr+ColuSQafN5LcUGjCJqOtxjMfq8sJbRNmnpsT\nc0QOf7Nx0ZSkwdM9OZyslOWZujOYOrXO1+g5p1ljumBqefg5Cg/zyGlm2wuAnG1B\nS/QtmIA559lgQ/Y0Ke0ta8au7DKihzEIqzxjN9X3s+oL+145BTT+V1aBYqoyymHf\n6z/qPTQhAgMBAAECggEAALJd1Aha2O5j2Q1hcCr8eIJVDije9Q++muZlczMucUNV\nvL7fIzsagI7xWsrsWPT2AAtLwY53v0uuAZWe/ADTAI3hCbXXwm2axhXwZoO163FH\nhZsWHS4fu/Ko1KBWWcNcgRjz/79fPYAvLZXKyZbEHiNsvnL8Lxy+7ff2G+lRGCJ5\nQy97TwBRr1tKK7adUmgCZ3rTwrM3Thjrsv2BpwMOq0Ol7YuR0LDReuhAqt2bb9Hy\nYU7SAu4KV0teOGx6q/xfRnoXJt9dq29GmesJUo1RmCHjHvkUW7O/xcAg5B79fhno\nibpMDJnFZ9esFuthbV3sJyAoxrjCetHCzgqiDrzSrQKBgQDz6TGffNwIH+5yu/3P\nzanZ1fwLy8GfO3/9rGC46rvtjRUhTDR2TydPghhHGYkXI4DWUu3/ZPQuTGVCIFqQ\nKyN3RPPzMADtkTEjWHiRMVdAKMHqtxej6t6G9NPlcZ0j85LPUp7GIbzSHcgKROXF\nKvKhgUQbTKF05TNqigXmePDsjwKBgQDcvHaag40EbNvlBxsxIyLQffyos76XK+TN\nXVP0BZbtiKvJQqw37sf02ac4iz4j/2fdLB+zlMKX3Z98uRpMzZ+c4jWD2iJfb6gk\ngUkUrhhvHVej/RFd6x5hm/YTBYvasihozHALonJWfviCEjMVFlR6QURzzcAja2g+\n8Aw2MBqMTwKBgQCFd/e1hEeLEp4SnphW2/2zvAp+EfNTxOVW1LrgtWI8rVUAsYiL\nrOif81qBnZGM3dqkbSDa/k04AInwU2/7L//qRgsP6ha36Rlwc/sVyGAsNaFXZPVE\nt0MpqlNBXJhWkfSmClnjpZaDi9Ro+iaZa9T1V50DKz22j61BAWIVKdz8NQKBgB0w\nJpbD8m+1XVZpnCThOodLQY+lRPyEZ1rojmNkIdMDEYQpdtBmmLY92ajWcL8d1MQg\nQ4jhkOG4ApDhgSLKxeJe3yiyPX1VLGy3U8ySQNTgkmgy3IsIvhm2H9HgF+AxUrqY\n3fAL6Qaa/41jjrGpJD6ORtjxSgjk+QHpiBPaRIhtAoGAb/0BmnKvi8dNU2fHHLf8\nNrFhBhR/IGQnfrhu7GQ/OhNeiZkzCHlTwP2eIN3405zcNu2wmtbzS4Q8ukIzvKlK\nEm0yolScwzT9ZO59jakN4gkafOJJw3Y8wpfAs2/Fyooaci6IuEF3qOi8ZtLwUXJC\nBubFklTnztkjhAgB/nONwOU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "swan-app-caa56@appspot.gserviceaccount.com",
+  "client_id": "115646026807871179613",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/swan-app-caa56%40appspot.gserviceaccount.com"
+}

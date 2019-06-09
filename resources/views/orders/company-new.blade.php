@@ -1,0 +1,103 @@
+@extends('admin_layouts.inc')
+@section('title','الطلبات الجديدة')
+@section('breadcrumb','الطلبات الجديدة')
+@section('styles')
+@endsection
+@section('content')
+  <!-- Main content -->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- BEGIN EXAMPLE TABLE PORTLET-->
+      <div class="portlet light bordered">
+        <div class="portlet-title">
+          <div class="caption font-dark">
+            <i class="icon-settings font-dark"></i>
+            <span class="caption-subject bold uppercase">بيانات الطلبات الجديدة</span>
+          </div>
+          <div class="tools"> </div>
+        </div>
+        <div class="portlet-body">
+          <table class="table table-striped table-bordered table-hover" id="descriptions">
+            <thead>
+            <th class="col-md-1">رقم الطلب</th>
+            <th class="col-md-1">نوع الخدمه</th>
+            <th class="col-md-1">نوع المكيف</th>
+            <th class="col-md-1">عدد التكييفات</th>
+            <th class="col-md-1">الحي</th>
+            <th class="col-md-1">خيارات</th>
+            </thead>
+            <tbody>
+            @foreach ($tableData->getData()->data as $row)
+              <tr>
+                <td>{{  $row->id }}</td>
+                <td>{{  $row->getServiceTypes }}</td>
+                <td>{{  $row->getAirTypes }}</td>
+                <td>{{  $row->air_number }}</td>
+                <td>{{  $row->region }}</td>
+                <td>{!! $row->actions !!}</td>
+              </tr>
+            @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+  <script type="text/javascript">
+    function agreeOrder(id) {
+      if (window.confirm("هل تريد قبول الطلب؟"))
+      {
+        $('.agreeOrder').button('loading');
+        $.ajax({
+          url: "agree-order/" + id,
+          type: "GET",
+          success: function(res){
+            $('.companyPending').html( $(".companyPending").attr('data-id') - 1);
+            swal({
+              title: "تم قبول الطلب بنجاح",
+              type: "success",
+              closeOnConfirm: false,
+              confirmButtonText: "موافق !",
+              confirmButtonColor: "#ec6c62",
+              allowOutsideClick: true
+            });
+            oTable.draw();
+            $('.agreeOrder').button('reset');
+          },
+          error: function(){
+            $('.agreeOrder').button('reset');
+          }
+        });
+      }
+    }
+
+    $(document).ready(function() {
+      oTable = $('#descriptions').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "responsive": true,
+        'paging'      : true,
+        "language": {
+          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Arabic.json"
+        },
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false,
+        "ajax": {{ $tableData->getData()->recordsFiltered }},
+        "columns": [
+          {data: 'id', name: 'id'},
+          {data: 'getServiceTypes', name: 'getServiceTypes'},
+          {data: 'getAirTypes', name: 'getAirTypes'},
+          {data: 'air_number', name: 'air_number'},
+          {data: 'region', name: 'region'},
+          {data: 'actions', name: 'actions'}
+        ],
+        order: [ [0, 'desc'] ]
+      })
+    });
+  </script>
+@endsection

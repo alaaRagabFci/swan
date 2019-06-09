@@ -1,0 +1,120 @@
+
+
+
+
+@font-face {
+  font-family: 'Droid Arabic Kufi';
+  src: url(../fonts/din-next-lt-w23-regular_0.ttf);
+}
+
+
+.content-services .iconbox_content{
+	min-height: 220px
+}
+
+input,
+#top .main_color .input-text, #top .main_color input[type='text'], #top .main_color input[type='input'], #top .main_color input[type='password'], #top .main_color input[type='email'], #top .main_color input[type='number'], #top .main_color input[type='url'], #top .main_color input[type='tel'], #top .main_color input[type='search'], #top .main_color textarea, #top .main_color select {
+    border-color: #f9f7f7 !important;
+    background-color: #ffffff !important;
+    color: #919191 !important;
+    padding: 13px !important;
+    font-family: inherit !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 15px 1px #f7f4f4 !important;
+}
+
+.select2-container--default .select2-selection--single {
+    color: #919191;
+    height: 43px;
+    box-shadow: 0 0 15px 1px #f7f4f4;
+    background-color: #ffffff;	
+	border: 1px solid #f9f7f7;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 42px;
+	width: 30px;
+}
+
+input[type='submit'],
+.more_co_btn,
+#co_submit_form,
+.submitbtn{
+    background: #f2bc01 !important;
+    font-weight: bold;
+    padding: 13px 30px;
+    font-size: 14px;
+    border-radius: 5px !important;
+    cursor: pointer;	
+	border:0 !important;
+    color: white;	
+}
+
+.form-row.hide.more_co{
+	margin-bottom: 10px !important
+}
+
+.txt-more{
+	margin-bottom: 0;
+}
+
+.first-heading,
+.heading-type-ser{
+	margin-top: 20px
+}
+
+#co_submit_form{
+	margin-top: 30px
+}
+
+.para1{
+    margin-top: 0;
+	color: #BBBBBB			
+}
+
+.table-content{
+	border: 1px solid #EEE;
+	margin-bottom: 20px;
+	box-shadow: 0 0 25px 2px #e6e5e5a3;
+}
+
+
+.table-content p {
+    background: #efbb20;
+    margin: 0;
+    color: #FFF;
+    padding: 15px;	
+}
+
+.table-content table {
+    margin: auto;
+    width: 98%;
+    margin-top: 9px;
+    margin-bottom: 9px;	
+}
+
+
+.table-content tfoot tr{
+    background: #795548 !important;
+    color: #FFF;
+}
+
+#co_test{
+	margin-left: 25px
+}
+
+#mobile-advanced li > a:before, 
+.html_header_mobile_behavior #mobile-advanced span > a:before, 
+#mobile-advanced .mega_menu_title:before {
+	content: none
+}
+
+@media(max-width: 776px) {
+
+
+	.content-services .iconbox_content{
+		min-height: auto
+	}
+
+
+}
