@@ -43,42 +43,47 @@ class SendNotificationCompanies implements ShouldQueue
     {
         $categoryService = new CategoryService();
         $categories = $categoryService->listCategories();
-        foreach ($categories as $category){
-            $companies = User::where('category_id', $category->id)->get();
-            if($this->application['status'] != OrderStatus::ACCEPTED){
-                foreach ($companies as $company){
-                    $companyOrder = new CompanyOrder();
-                    $companyOrder->company_id = $company->id;
-                    $companyOrder->application_id = $this->application['id'];
-                    $companyOrder->save();
+        if( $this->job->attempts() == 1 ){
+            foreach ($categories as $category){
+                $companies = User::where('category_id', $category->id)->get();
+                if($this->application['status'] != OrderStatus::ACCEPTED){
+                    foreach ($companies as $company){
+                        $companyOrder = new CompanyOrder();
+                        $companyOrder->company_id = $company->id;
+                        $companyOrder->application_id = $this->application['id'];
+                        $companyOrder->save();
 
-                    //send push notification to assigned company
-                    $companyTokens = UserDevice::where('user_id', $company->id)->get();
-                    $tokens = [];
-                    foreach($companyTokens as $companyToken){
-                        $tokens[] = $companyToken->device_token;
+                        //send push notification to assigned company
+                        $companyTokens = UserDevice::where('user_id', $company->id)->get();
+                        $tokens = [];
+                        foreach($companyTokens as $companyToken){
+                            $tokens[] = $companyToken->device_token;
+                        }
+
+                        PushNotification::push_notification(
+                            [
+                                "target" => $tokens,
+                                "title" => 'طلب مسند',
+                                "type" => 'NewAssignedOrder'
+                            ]
+                        );
+
+                        $notificationService = new NotificationService();
+                        $notificationService->create(
+                            $company->id,
+                            $this->application['id'],
+                            NotificationType::APPLICATION,
+                            'تم أسناد طلب جديد رقم ' . $this->application['id'],
+                            'company-new-orders',
+                            UserType::COMPANY
+                        );
                     }
-
-                    PushNotification::push_notification(
-                        [
-                            "target" => $tokens,
-                            "title" => 'طلب مسند',
-                            "type" => 'NewAssignedOrder'
-                        ]
-                    );
-
-                    $notificationService = new NotificationService();
-                    $notificationService->create(
-                        $company->id,
-                        $this->application['id'],
-                        NotificationType::APPLICATION,
-                        'تم أسناد طلب جديد رقم ' . $this->application['id'],
-                        'company-new-orders',
-                        UserType::COMPANY
-                    );
                     //sleep time if status still pending loop again
                     $setting = Setting::first();
                     sleep($setting->waiting_order_time * 60); //continue
+                }else{
+                    $this->job->delete();
+                    break;
                 }
             }
         }
