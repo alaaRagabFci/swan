@@ -16,6 +16,16 @@ class CategoryService
         return Category::orderBy('sort', 'ASC')->get();
     }
 
+    public function getFirstCategory()
+    {
+        return Category::orderBy('sort', 'ASC')->first();
+    }
+
+    public function getNextCategory($category)
+    {
+        return Category::where('id', '!=' ,$category->id)->where('sort', '>' ,  $category->sort)->orderBy('sort', 'ASC')->first();
+    }
+
     /**
      * Datatebles
      * @param $Categories

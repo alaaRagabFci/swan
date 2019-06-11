@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Constants\OrderStatus;
 use App\Models\Application;
+use App\Models\CompanyOrder;
 use App\Models\Setting;
 use App\Models\UserDevice;
 use App\Services\NotificationService;
@@ -53,6 +54,8 @@ class SendNotificationNotAssignedOrderTime extends Command
             if($appointment <= $timeNow){
                 $order->status = OrderStatus::NOT_ASSIGN;
                 $order->save();
+                if($order)
+                    CompanyOrder::where('application_id', $order->id)->delete();
                 echo 'Status changed successfully!!';
             }else{
                 echo 'Not yet';

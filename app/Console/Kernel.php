@@ -43,6 +43,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('SendNotificationNotAssignedOrderTime:sendNotificationNotAssignedOrderTime')->everyMinute();
         $schedule->command('SendNotificationBeforeOrderTime:sendNotifficationBeforeOrderTime')->everyMinute();
+        $schedule->command('AssignCompaniesToApplication:assignCompaniesToApplication')->everyMinute();
     }
 
     /**

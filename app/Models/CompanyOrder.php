@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyOrder extends Model
 {
     protected $table = "company_orders";
-    protected $fillable = ['application_id', 'company_id'];
+    protected $fillable = ['application_id', 'company_id', 'category_id'];
     public $timestamps  = false;
 
     public function getApplication()

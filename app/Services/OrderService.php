@@ -198,6 +198,7 @@ class OrderService
         $order = $this->getOrder($orderId);
         $order->status = $status;
         $order->cancellation_reason = $reason;
+        $order->save();
         if($order->company_id){
             //send push notification to team works & companies
             $admin = User::where('type' , UserType::ADMIN)->first();
@@ -249,7 +250,9 @@ class OrderService
                 UserType::ADMIN
             );
         }
-        $order->save();
+        else{
+            CompanyOrder::where('application_id', $orderId)->delete();
+        }
         return $order;
     }
 
@@ -304,6 +307,9 @@ class OrderService
                     '',
                     UserType::COMPANY
                 );
+            }
+            else{
+                CompanyOrder::where('application_id', $orderId)->delete();
             }
         }
         if($status == "Hanging"){
@@ -456,6 +462,9 @@ class OrderService
         $order->status = 'Accepted';
         $order->is_active = true;
         $order->save();
+
+        if($order)
+            CompanyOrder::where('application_id', $orderId)->delete();
 
         //send push notification to assigned company
         $companyTokens = UserDevice::where('user_id', $parameters['company_id'])->get();

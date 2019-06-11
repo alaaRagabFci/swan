@@ -6,6 +6,7 @@ use App\Constants\NotificationType;
 use App\Constants\OrderStatus;
 use App\Constants\UserType;
 use App\Models\Application;
+use App\Models\Category;
 use App\Models\CompanyOrder;
 use App\Models\Setting;
 use App\Models\UserDevice;
@@ -23,7 +24,7 @@ class AssignCompaniesToApplication extends Command
      *
      * @var string
      */
-    protected $signature = 'AssignCompaniesToApplication:assignCompaniesToApplication {application} {--queue}';
+    protected $signature = 'AssignCompaniesToApplication:assignCompaniesToApplication';
 
     /**
      * The console command description.
@@ -43,13 +44,6 @@ class AssignCompaniesToApplication extends Command
         parent::__construct();
     }
 
-    protected function getArguments()
-    {
-        return array(
-            array('application', InputArgument::REQUIRED, 'Application object' ),
-        );
-    }
-
     /**
      * Execute the console command.
      *
@@ -57,17 +51,40 @@ class AssignCompaniesToApplication extends Command
      */
     public function handle()
     {
-        $args = $this->arguments();
-        $application = $args['application'];
+        //get apllication status equal pending
+        $applications = Application::where('status', OrderStatus::PENDING)->get();
+        $setting = Setting::first();
+        $checkIfExist = 0;
+        $nextCategory = null;
         $categoryService = new CategoryService();
-        $categories = $categoryService->listCategories();
-        foreach ($categories as $category){
-            $companies = User::where('category_id', $category->id)->get();
-            if($application['status'] != OrderStatus::ACCEPTED){
+        foreach ($applications as $application){
+            $companyOrder = CompanyOrder::where('application_id', $application->id)->orderBy('id', 'DESC')->first();
+            if($companyOrder->category_id){
+                $category = Category::find($companyOrder->category_id);
+                $nextCategory = $categoryService->getNextCategory( $category );
+                if($nextCategory){
+                    $compOrder = CompanyOrder::where(['application_id' => $application->id, 'category_id' => $nextCategory->id])->first();
+                    if($compOrder)
+                        $checkIfExist = 1;
+                }
+            }
+            $timeNow = strtotime(date("Y-m-d H:i:s"));
+            $createdAt = strtotime($companyOrder->created_at);
+            $diff = round(abs($createdAt - $timeNow) / 60,2);
+            if( !$checkIfExist && $diff >= $setting->waiting_order_time && $companyOrder->category_id ){
+                $companies = User::where('category_id', $companyOrder->category_id)->get();
+                if(count($companies) == 0){
+                    $nextCategory_ = $categoryService->getNextCategory( $category );
+                    if($nextCategory_) {
+                        $companies = User::where('category_id', $nextCategory_->id)->get();
+                        $nextCategory = $categoryService->getNextCategory($nextCategory_);
+                    }
+                }
                 foreach ($companies as $company){
                     $companyOrder = new CompanyOrder();
                     $companyOrder->company_id = $company->id;
-                    $companyOrder->application_id = $application['id'];
+                    $companyOrder->application_id = $application->id;
+                    $companyOrder->category_id = $nextCategory ? $nextCategory->id : null;
                     $companyOrder->save();
 
                     //send push notification to assigned company
@@ -88,21 +105,14 @@ class AssignCompaniesToApplication extends Command
                     $notificationService = new NotificationService();
                     $notificationService->create(
                         $company->id,
-                        $application['id'],
+                        $application->id,
                         NotificationType::APPLICATION,
-                        'تم أسناد طلب جديد رقم ' . $application['id'],
+                        'تم أسناد طلب جديد رقم ' . $application->id,
                         'company-new-orders',
                         UserType::COMPANY
                     );
-                    //sleep time if status still pending loop again
-                    $setting = Setting::first();
-                    sleep($setting->waiting_order_time * 60); //continue
                 }
             }
-            else{
-                break;
-            }
         }
-        return 'true';
     }
 }
