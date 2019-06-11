@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2019 at 12:48 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Jun 11, 2019 at 04:34 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -78,55 +78,11 @@ CREATE TABLE `applications` (
 
 INSERT INTO `applications` (`id`, `name`, `phone`, `region_id`, `latitude`, `longitude`, `status`, `reason`, `cancellation_reason`, `company_id`, `hour_id`, `day`, `confirmation_code`, `is_active`, `rate`, `created_at`, `updated_at`) VALUES
 (7, 'application 1', '01013258874', 41, 123, 132, 'Sms_Not_Confirmed', NULL, NULL, 3, 8, '2019-05-28', '', 1, 'Rated', '2019-05-24 17:09:55', '2019-06-07 03:11:34'),
-(8, 'application 2', '01013696652', 41, 123, 132, '', NULL, NULL, 3, 7, '2019-05-22', '', 1, 'Rated', '2019-05-24 17:09:55', '2019-06-07 03:11:37'),
+(8, 'application 2', '01013696652', 41, 123, 132, 'Sms_Not_Confirmed', NULL, NULL, 3, 7, '2019-05-22', '', 1, 'Rated', '2019-05-24 17:09:55', '2019-06-10 23:25:53'),
 (9, 'application 3', '01254711112', 41, 123, 132, 'Accepted', NULL, NULL, 3, 7, '2019-05-22', '', 1, 'Not_Opened', '2019-05-24 17:09:55', '2019-05-29 02:16:14'),
-(10, 'application 4', '01254711100', 41, 123, 132, 'Accepted', NULL, NULL, 3, 7, '2019-05-22', '', 1, 'Not_Opened', '2019-05-24 19:09:55', '2019-05-29 02:16:17'),
-(11, 'application 5', '01022225558', 41, 123, 132, 'Cancelled', 'العميل لم يرد علي التليفون', '555', 3, 7, '2019-05-22', '', 1, 'Not_Opened', '2019-05-24 17:09:55', '2019-06-02 03:30:47'),
-(12, 'application 6', '01022225558', 41, 123, 132, 'Cancelled', 'العميل لم يرد علي التليفون', NULL, 3, 7, '2019-05-22', '', 1, 'Not_Opened', '2019-05-24 17:09:55', '2019-05-29 21:54:40'),
-(59, 'Hossam2', '01013696675344', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-15', '444cid', 1, 'Not_Opened', '2019-06-04 01:04:35', '2019-06-04 01:04:47'),
-(61, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-15', '249enf', 1, 'Not_Opened', '2019-06-06 03:30:10', '2019-06-06 03:30:34'),
-(65, 'we', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-06 05:03:33', '2019-06-06 05:03:33'),
-(66, 'a', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-29', '', 1, 'Not_Opened', '2019-06-07 00:39:02', '2019-06-07 00:39:02'),
-(67, 'a', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-29', '', 1, 'Not_Opened', '2019-06-07 00:43:01', '2019-06-07 00:43:01'),
-(68, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 00:43:51', '2019-06-07 00:43:51'),
-(69, 'John Doe', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 00:45:35', '2019-06-07 00:45:35'),
-(70, 'John Doe', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-06', '', 1, 'Not_Opened', '2019-06-07 00:46:12', '2019-06-07 00:46:12'),
-(71, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 00:46:39', '2019-06-07 00:46:39'),
-(72, 'الرياض', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 00:47:44', '2019-06-07 00:47:44'),
-(73, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-07 00:51:33', '2019-06-07 00:51:33'),
-(74, 'a', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 00:53:17', '2019-06-07 00:53:17'),
-(75, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 00:57:17', '2019-06-07 00:57:17'),
-(76, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-19', '', 1, 'Not_Opened', '2019-06-07 00:59:27', '2019-06-07 00:59:27'),
-(77, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:00:14', '2019-06-07 01:00:14'),
-(78, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:00:34', '2019-06-07 01:00:34'),
-(79, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-07 01:03:26', '2019-06-07 01:03:26'),
-(80, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-07 01:04:31', '2019-06-07 01:04:31'),
-(81, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-19', '', 1, 'Not_Opened', '2019-06-07 01:08:00', '2019-06-07 01:08:00'),
-(82, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 01:09:26', '2019-06-07 01:09:26'),
-(83, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 01:10:02', '2019-06-07 01:10:02'),
-(84, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:12:53', '2019-06-07 01:12:53'),
-(85, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 01:14:37', '2019-06-07 01:14:37'),
-(86, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 01:15:20', '2019-06-07 01:15:20'),
-(87, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-07 01:16:05', '2019-06-07 01:16:05'),
-(88, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:16:53', '2019-06-07 01:16:53'),
-(89, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 01:18:27', '2019-06-07 01:18:27'),
-(90, 'a', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:24:50', '2019-06-07 01:24:50'),
-(91, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:27:22', '2019-06-07 01:27:22'),
-(92, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 01:47:03', '2019-06-07 01:47:03'),
-(93, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-07 01:48:21', '2019-06-07 01:48:21'),
-(94, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-07 01:49:50', '2019-06-07 01:49:50'),
-(95, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 01:53:59', '2019-06-07 01:53:59'),
-(96, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:54:46', '2019-06-07 01:54:46'),
-(97, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:55:34', '2019-06-07 01:55:34'),
-(98, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:55:53', '2019-06-07 01:55:53'),
-(99, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:56:27', '2019-06-07 01:56:27'),
-(100, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-07 01:56:34', '2019-06-07 01:56:34'),
-(101, 'hhh', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-18', '', 1, 'Not_Opened', '2019-06-07 01:57:10', '2019-06-07 01:57:10'),
-(102, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-05-30', '', 1, 'Not_Opened', '2019-06-08 00:58:55', '2019-06-08 00:58:55'),
-(103, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-04', '', 1, 'Not_Opened', '2019-06-08 01:02:53', '2019-06-08 01:02:53'),
-(104, 'Hossam2', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-06', '', 1, 'Not_Opened', '2019-06-08 01:07:20', '2019-06-08 01:07:20'),
-(105, 'asd', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-19', '', 1, 'Not_Opened', '2019-06-08 01:09:10', '2019-06-08 01:09:10'),
-(106, 'a', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-06', '', 1, 'Not_Opened', '2019-06-08 01:10:06', '2019-06-08 01:10:06');
+(61, 'Hossam2', '50123654', 41, NULL, NULL, 'Accepted', NULL, NULL, NULL, 7, '2019-06-15', '249enf', 1, 'Not_Opened', '2019-06-06 03:30:10', '2019-06-10 23:25:48'),
+(113, '123', '50123654', 41, NULL, NULL, 'Not_Assign', NULL, NULL, NULL, 7, '2019-06-07', '', 1, 'Not_Opened', '2019-06-11 00:51:24', '2019-06-11 01:58:41'),
+(115, 'ss', '50123654', 41, NULL, NULL, 'Pending', NULL, NULL, NULL, 7, '2019-06-06', '', 1, 'Not_Opened', '2019-06-11 01:58:59', '2019-06-11 01:58:59');
 
 -- --------------------------------------------------------
 
@@ -152,11 +108,8 @@ INSERT INTO `application_air_types_services` (`id`, `application_id`, `air_type_
 (53, 7, 4, 3, 5, '2019-06-04 01:04:35', '2019-06-07 03:35:07'),
 (56, 7, 1, 3, 1, '2019-06-06 03:30:10', '2019-06-07 03:35:09'),
 (58, 7, 1, 1, 1, '2019-06-06 05:05:48', '2019-06-07 03:35:11'),
-(95, 102, 1, 1, 1, '2019-06-08 00:58:55', '2019-06-08 00:58:55'),
-(96, 103, 1, 1, 1, '2019-06-08 01:02:53', '2019-06-08 01:02:53'),
-(97, 104, 1, 3, 1, '2019-06-08 01:07:20', '2019-06-08 01:07:20'),
-(98, 105, 1, 3, 1, '2019-06-08 01:09:10', '2019-06-08 01:09:10'),
-(99, 106, 2, 3, 1, '2019-06-08 01:10:06', '2019-06-08 01:10:06');
+(106, 113, 1, 2, 1, '2019-06-11 00:51:24', '2019-06-11 00:51:24'),
+(108, 115, 1, 3, 1, '2019-06-11 01:58:59', '2019-06-11 01:58:59');
 
 -- --------------------------------------------------------
 
@@ -181,8 +134,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `x`, `commission_more`, `commission_less`, `sort`, `is_active`, `created_at`, `updated_at`) VALUES
-(22, 'قسم 1', 300, 10, 20, 1, 1, '2019-05-24 13:44:34', '2019-05-24 13:44:34'),
-(25, 'قسم 2', 300, 10, 20, 2, 1, '2019-05-24 13:44:34', '2019-05-24 13:44:34');
+(22, 'قسم 1', 300, 10, 20, 2, 1, '2019-05-24 13:44:34', '2019-06-09 22:05:59'),
+(25, 'قسم 2', 300, 10, 20, 1, 1, '2019-05-24 13:44:34', '2019-06-09 22:05:59'),
+(26, 'قسم 3', 300, 10, 20, 3, 1, '2019-05-24 13:44:34', '2019-06-11 01:57:51');
 
 -- --------------------------------------------------------
 
@@ -194,6 +148,7 @@ CREATE TABLE `company_orders` (
   `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -202,10 +157,11 @@ CREATE TABLE `company_orders` (
 -- Dumping data for table `company_orders`
 --
 
-INSERT INTO `company_orders` (`id`, `company_id`, `application_id`, `created_at`, `updated_at`) VALUES
-(45, 3, 105, '2019-06-08 01:10:14', '2019-06-08 01:10:14'),
-(46, 7, 105, '2019-06-08 01:11:31', '2019-06-08 01:11:31'),
-(47, 3, 105, '2019-06-08 01:12:33', '2019-06-08 01:12:33');
+INSERT INTO `company_orders` (`id`, `company_id`, `application_id`, `category_id`, `created_at`, `updated_at`) VALUES
+(73, 8, 115, 22, '2019-06-11 02:59:08', '2019-06-11 02:00:43'),
+(74, 9, 115, 22, '2019-06-11 02:59:10', '2019-06-11 02:01:29'),
+(75, 3, 115, 26, '2019-06-11 02:06:30', '2019-06-11 02:06:30'),
+(76, 7, 115, 26, '2019-06-11 02:06:31', '2019-06-11 02:06:31');
 
 -- --------------------------------------------------------
 
@@ -318,14 +274,6 @@ CREATE TABLE `jobs` (
   `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `jobs`
---
-
-INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
-(1378, 'default', '{\"displayName\":\"App\\\\Jobs\\\\SendNotificationCompanies\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\SendNotificationCompanies\",\"command\":\"O:34:\\\"App\\\\Jobs\\\\SendNotificationCompanies\\\":8:{s:14:\\\"\\u0000*\\u0000application\\\";O:45:\\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\\":3:{s:5:\\\"class\\\";s:22:\\\"App\\\\Models\\\\Application\\\";s:2:\\\"id\\\";i:105;s:10:\\\"connection\\\";s:5:\\\"mysql\\\";}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";N;s:7:\\\"chained\\\";a:0:{}}\"}}', 2, 1559956353, 1559956151, 1559956151),
-(1379, 'default', '{\"displayName\":\"App\\\\Jobs\\\\SendNotificationCompanies\",\"job\":\"Illuminate\\\\Queue\\\\CallQueuedHandler@call\",\"maxTries\":null,\"timeout\":null,\"timeoutAt\":null,\"data\":{\"commandName\":\"App\\\\Jobs\\\\SendNotificationCompanies\",\"command\":\"O:34:\\\"App\\\\Jobs\\\\SendNotificationCompanies\\\":8:{s:14:\\\"\\u0000*\\u0000application\\\";O:45:\\\"Illuminate\\\\Contracts\\\\Database\\\\ModelIdentifier\\\":3:{s:5:\\\"class\\\";s:22:\\\"App\\\\Models\\\\Application\\\";s:2:\\\"id\\\";i:106;s:10:\\\"connection\\\";s:5:\\\"mysql\\\";}s:6:\\\"\\u0000*\\u0000job\\\";N;s:10:\\\"connection\\\";N;s:5:\\\"queue\\\";N;s:15:\\\"chainConnection\\\";N;s:10:\\\"chainQueue\\\";N;s:5:\\\"delay\\\";N;s:7:\\\"chained\\\";a:0:{}}\"}}', 0, NULL, 1559956206, 1559956206);
-
 -- --------------------------------------------------------
 
 --
@@ -349,144 +297,31 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `application_id`, `type`, `text`, `user_type`, `user_id`, `seen`, `created_at`, `updated_at`) VALUES
-(104, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 20:46:22', '2019-05-28 20:46:22'),
-(105, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 20:50:36', '2019-05-28 20:50:36'),
-(106, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 20:52:33', '2019-05-28 20:52:33'),
-(107, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 20:52:48', '2019-05-28 20:52:48'),
-(108, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 20:53:42', '2019-05-28 20:53:42'),
-(109, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:09:31', '2019-05-28 21:09:31'),
-(110, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:09:40', '2019-05-28 21:09:40'),
-(111, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-05-28 21:14:11', '2019-05-28 21:14:11'),
-(112, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-05-28 21:14:18', '2019-05-28 21:14:18'),
-(113, 10, 'Application', 'تم أسناد طلب جديد رقم 10', 'Company', 3, 0, '2019-05-28 21:18:57', '2019-05-28 21:18:57'),
-(114, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:21:19', '2019-05-28 21:21:19'),
-(115, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:21:32', '2019-05-28 21:21:32'),
-(116, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:22:05', '2019-05-28 21:22:05'),
-(117, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-05-28 21:23:21', '2019-05-28 21:23:21'),
-(118, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-05-28 21:23:29', '2019-05-28 21:23:29'),
 (119, 9, 'Application', 'تم أسناد طلب جديد رقم 9', 'Company', 3, 0, '2019-05-28 21:24:06', '2019-05-28 21:24:06'),
 (120, 9, 'Application', 'تم أسناد طلب جديد رقم 9', 'Company', 3, 0, '2019-05-28 21:24:14', '2019-05-28 21:24:14'),
 (121, 9, 'Application', 'تم أسناد طلب جديد رقم 9', 'Company', 3, 0, '2019-05-28 21:30:01', '2019-05-28 21:30:01'),
 (122, 7, 'Application', 'تم أسناد طلب جديد رقم 7', 'Company', 3, 0, '2019-05-28 21:31:29', '2019-05-28 21:31:29'),
 (123, 7, 'Application', 'تم أسناد طلب جديد رقم 7', 'Company', 3, 0, '2019-05-28 21:31:38', '2019-05-28 21:31:38'),
-(124, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-05-28 21:47:49', '2019-05-28 21:47:49'),
-(125, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 21:48:55', '2019-05-28 21:48:55'),
 (126, 8, 'Application', 'تم أسناد طلب جديد رقم 8', 'Company', 3, 0, '2019-05-28 21:49:13', '2019-05-28 21:49:13'),
-(127, 12, 'Application', 'تم أسناد طلب جديد رقم 12', 'Company', 3, 0, '2019-05-28 22:46:53', '2019-05-28 22:46:53'),
 (128, 7, 'Application', ' يتبقي أقل من 3 دقائق علي ميعاد الطلب ', 'Team_Work', 4, 0, '2019-05-29 00:59:19', '2019-05-29 00:59:19'),
 (129, 7, 'Application', ' يتبقي أقل من 3 دقائق علي ميعاد الطلب ', 'Team_Work', 6, 0, '2019-05-29 00:59:21', '2019-05-29 00:59:21'),
 (130, 7, 'Application', ' يتبقي أقل من 3 دقائق علي ميعاد الطلب ', 'Company', 3, 0, '2019-05-29 00:59:22', '2019-05-29 00:59:22'),
-(131, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Team_Work', 4, 0, '2019-05-28 23:51:21', '2019-05-28 23:51:21'),
-(132, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Team_Work', 6, 0, '2019-05-28 23:51:23', '2019-05-28 23:51:23'),
-(133, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Company', 3, 0, '2019-05-28 23:51:23', '2019-05-28 23:51:23'),
-(134, 12, 'Application', ' تم تعليق الطلب رقم 12', 'Company', 3, 0, '2019-05-28 23:52:37', '2019-05-28 23:52:37'),
-(135, 11, 'Application', ' تم تعليق الطلب رقم 11', 'Company', 3, 0, '2019-05-28 23:53:07', '2019-05-28 23:53:07'),
-(136, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Team_Work', 4, 0, '2019-05-29 19:54:38', '2019-05-29 19:54:38'),
-(137, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Team_Work', 6, 0, '2019-05-29 19:54:39', '2019-05-29 19:54:39'),
-(138, 12, 'Application', ' تم الغاء الطلب رقم 12', 'Company', 3, 0, '2019-05-29 19:54:40', '2019-05-29 19:54:40'),
-(139, 11, 'Application', 'تم أسناد طلب جديد رقم 11', 'Company', 3, 0, '2019-06-01 22:30:47', '2019-06-01 22:30:47'),
-(140, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:47:05', '2019-06-02 00:47:05'),
-(141, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:47:19', '2019-06-02 00:47:19'),
-(142, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:47:20', '2019-06-02 00:47:20'),
-(143, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:47:23', '2019-06-02 00:47:23'),
-(144, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:50:04', '2019-06-02 00:50:04'),
-(145, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:50:05', '2019-06-02 00:50:05'),
-(146, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:50:06', '2019-06-02 00:50:06'),
-(147, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:50:06', '2019-06-02 00:50:06'),
-(148, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:51:21', '2019-06-02 00:51:21'),
-(149, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:51:25', '2019-06-02 00:51:25'),
-(150, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:51:26', '2019-06-02 00:51:26'),
-(151, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:51:27', '2019-06-02 00:51:27'),
-(152, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:52:01', '2019-06-02 00:52:01'),
-(153, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:52:02', '2019-06-02 00:52:02'),
-(154, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:52:03', '2019-06-02 00:52:03'),
-(155, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:52:03', '2019-06-02 00:52:03'),
-(156, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:52:30', '2019-06-02 00:52:30'),
-(157, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:52:34', '2019-06-02 00:52:34'),
-(158, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:52:35', '2019-06-02 00:52:35'),
-(159, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:52:35', '2019-06-02 00:52:35'),
-(160, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:53:27', '2019-06-02 00:53:27'),
-(161, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:53:30', '2019-06-02 00:53:30'),
-(162, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:53:31', '2019-06-02 00:53:31'),
-(163, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:53:33', '2019-06-02 00:53:33'),
-(164, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:54:30', '2019-06-02 00:54:30'),
-(165, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:54:36', '2019-06-02 00:54:36'),
-(166, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:54:37', '2019-06-02 00:54:37'),
-(167, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:54:39', '2019-06-02 00:54:39'),
-(168, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:56:35', '2019-06-02 00:56:35'),
-(169, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:56:35', '2019-06-02 00:56:35'),
-(170, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:56:35', '2019-06-02 00:56:35'),
-(171, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:56:35', '2019-06-02 00:56:35'),
-(172, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 00:59:31', '2019-06-02 00:59:31'),
-(173, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 00:59:32', '2019-06-02 00:59:32'),
-(174, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 00:59:32', '2019-06-02 00:59:32'),
-(175, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 00:59:33', '2019-06-02 00:59:33'),
-(176, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:00:47', '2019-06-02 01:00:47'),
-(177, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:00:48', '2019-06-02 01:00:48'),
-(178, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:00:49', '2019-06-02 01:00:49'),
-(179, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:00:49', '2019-06-02 01:00:49'),
-(180, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:06:47', '2019-06-02 01:06:47'),
-(181, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:06:50', '2019-06-02 01:06:50'),
-(182, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:06:51', '2019-06-02 01:06:51'),
-(183, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:06:52', '2019-06-02 01:06:52'),
-(184, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:08:13', '2019-06-02 01:08:13'),
-(185, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:08:19', '2019-06-02 01:08:19'),
-(186, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:08:20', '2019-06-02 01:08:20'),
-(187, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:08:21', '2019-06-02 01:08:21'),
-(188, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:09:22', '2019-06-02 01:09:22'),
-(189, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:09:24', '2019-06-02 01:09:24'),
-(190, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:09:25', '2019-06-02 01:09:25'),
-(191, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:09:26', '2019-06-02 01:09:26'),
-(192, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:14:13', '2019-06-02 01:14:13'),
-(193, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:14:15', '2019-06-02 01:14:15'),
-(194, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:14:16', '2019-06-02 01:14:16'),
-(195, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:14:18', '2019-06-02 01:14:18'),
-(196, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 4, 0, '2019-06-02 01:30:35', '2019-06-02 01:30:35'),
-(197, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Team_Work', 6, 0, '2019-06-02 01:30:43', '2019-06-02 01:30:43'),
-(198, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Company', 3, 0, '2019-06-02 01:30:44', '2019-06-02 01:30:44'),
-(199, 11, 'Application', ' تم الغاء الطلب رقم 11', 'Admin', 1, 0, '2019-06-02 01:30:45', '2019-06-02 01:30:45'),
-(203, 59, 'Application', 'تم أسناد طلب جديد رقم 59', 'Company', 3, 0, '2019-06-03 23:04:52', '2019-06-03 23:04:52'),
-(204, 59, 'Application', 'تم أسناد طلب جديد رقم 59', 'Company', 7, 0, '2019-06-03 23:06:02', '2019-06-03 23:06:02'),
 (205, 61, 'Application', 'تم أسناد طلب جديد رقم 61', 'Company', 3, 0, '2019-06-06 01:30:35', '2019-06-06 01:30:35'),
 (206, 61, 'Application', 'تم أسناد طلب جديد رقم 61', 'Company', 7, 0, '2019-06-06 03:30:43', '2019-06-06 03:30:43'),
-(208, 65, 'Application', 'تم أسناد طلب جديد رقم 65', 'Company', 3, 0, '2019-06-06 05:03:35', '2019-06-06 05:03:35'),
-(209, 65, 'Application', 'تم أسناد طلب جديد رقم 65', 'Company', 7, 0, '2019-06-06 05:04:42', '2019-06-06 05:04:42'),
-(210, 86, 'Application', 'تم أسناد طلب جديد رقم 86', 'Company', 3, 0, '2019-06-06 23:15:21', '2019-06-06 23:15:21'),
-(211, 87, 'Application', 'تم أسناد طلب جديد رقم 87', 'Company', 3, 0, '2019-06-06 23:16:14', '2019-06-06 23:16:14'),
-(212, 86, 'Application', 'تم أسناد طلب جديد رقم 86', 'Company', 7, 0, '2019-06-06 23:16:34', '2019-06-06 23:16:34'),
-(213, 88, 'Application', 'تم أسناد طلب جديد رقم 88', 'Company', 3, 0, '2019-06-06 23:16:56', '2019-06-06 23:16:56'),
-(214, 87, 'Application', 'تم أسناد طلب جديد رقم 87', 'Company', 7, 0, '2019-06-06 23:17:25', '2019-06-06 23:17:25'),
-(215, 88, 'Application', 'تم أسناد طلب جديد رقم 88', 'Company', 7, 0, '2019-06-06 23:18:14', '2019-06-06 23:18:14'),
-(216, 89, 'Application', 'تم أسناد طلب جديد رقم 89', 'Company', 3, 0, '2019-06-07 01:22:10', '2019-06-07 01:22:10'),
-(217, 89, 'Application', 'تم أسناد طلب جديد رقم 89', 'Company', 7, 0, '2019-06-07 01:23:19', '2019-06-07 01:23:19'),
-(218, 90, 'Application', 'تم أسناد طلب جديد رقم 90', 'Company', 3, 0, '2019-06-07 01:25:02', '2019-06-07 01:25:02'),
-(219, 90, 'Application', 'تم أسناد طلب جديد رقم 90', 'Company', 7, 0, '2019-06-07 01:26:10', '2019-06-07 01:26:10'),
-(220, 91, 'Application', 'تم أسناد طلب جديد رقم 91', 'Company', 3, 0, '2019-06-06 23:27:24', '2019-06-06 23:27:24'),
-(221, 91, 'Application', 'تم أسناد طلب جديد رقم 91', 'Company', 7, 0, '2019-06-06 23:28:32', '2019-06-06 23:28:32'),
-(222, 92, 'Application', 'تم أسناد طلب جديد رقم 92', 'Company', 3, 0, '2019-06-06 23:47:05', '2019-06-06 23:47:05'),
-(223, 92, 'Application', 'تم أسناد طلب جديد رقم 92', 'Company', 7, 0, '2019-06-06 23:48:09', '2019-06-06 23:48:09'),
-(224, 93, 'Application', 'تم أسناد طلب جديد رقم 93', 'Company', 3, 0, '2019-06-06 23:48:22', '2019-06-06 23:48:22'),
-(225, 93, 'Application', 'تم أسناد طلب جديد رقم 93', 'Company', 7, 0, '2019-06-06 23:49:25', '2019-06-06 23:49:25'),
-(226, 94, 'Application', 'تم أسناد طلب جديد رقم 94', 'Company', 3, 0, '2019-06-06 23:49:50', '2019-06-06 23:49:50'),
-(227, 94, 'Application', 'تم أسناد طلب جديد رقم 94', 'Company', 7, 0, '2019-06-06 23:50:53', '2019-06-06 23:50:53'),
-(228, 98, 'Application', 'تم أسناد طلب جديد رقم 98', 'Company', 3, 0, '2019-06-07 01:56:28', '2019-06-07 01:56:28'),
-(229, 99, 'Application', 'تم أسناد طلب جديد رقم 99', 'Company', 3, 0, '2019-06-07 01:56:35', '2019-06-07 01:56:35'),
-(230, 101, 'Application', 'تم أسناد طلب جديد رقم 101', 'Company', 3, 0, '2019-06-07 01:57:11', '2019-06-07 01:57:11'),
-(231, 98, 'Application', 'تم أسناد طلب جديد رقم 98', 'Company', 7, 0, '2019-06-07 01:57:30', '2019-06-07 01:57:30'),
-(232, 99, 'Application', 'تم أسناد طلب جديد رقم 99', 'Company', 7, 0, '2019-06-07 01:57:36', '2019-06-07 01:57:36'),
-(233, 101, 'Application', 'تم أسناد طلب جديد رقم 101', 'Company', 7, 0, '2019-06-07 01:58:13', '2019-06-07 01:58:13'),
-(234, 101, 'Application', 'تم أسناد طلب جديد رقم 101', 'Company', 3, 0, '2019-06-07 01:58:44', '2019-06-07 01:58:44'),
-(235, 101, 'Application', 'تم أسناد طلب جديد رقم 101', 'Company', 7, 0, '2019-06-07 01:59:46', '2019-06-07 01:59:46'),
 (236, NULL, 'ContactUs', 'رساله جديدة', 'Admin', 1, 0, '2019-06-07 01:04:17', '2019-06-07 01:04:17'),
-(237, 102, 'Application', 'تم أسناد طلب جديد رقم 102', 'Company', 3, 0, '2019-06-08 01:02:27', '2019-06-08 01:02:27'),
-(238, 102, 'Application', 'تم أسناد طلب جديد رقم 102', 'Company', 7, 0, '2019-06-08 01:03:43', '2019-06-08 01:03:43'),
-(239, 102, 'Application', 'تم أسناد طلب جديد رقم 102', 'Company', 3, 0, '2019-06-08 01:03:55', '2019-06-08 01:03:55'),
-(240, 103, 'Application', 'تم أسناد طلب جديد رقم 103', 'Company', 3, 0, '2019-06-08 01:04:56', '2019-06-08 01:04:56'),
-(241, 102, 'Application', 'تم أسناد طلب جديد رقم 102', 'Company', 7, 0, '2019-06-08 01:04:57', '2019-06-08 01:04:57'),
-(242, 103, 'Application', 'تم أسناد طلب جديد رقم 103', 'Company', 7, 0, '2019-06-08 01:05:57', '2019-06-08 01:05:57'),
-(243, 105, 'Application', 'تم أسناد طلب جديد رقم 105', 'Company', 3, 0, '2019-06-08 01:10:19', '2019-06-08 01:10:19'),
-(244, 105, 'Application', 'تم أسناد طلب جديد رقم 105', 'Company', 7, 0, '2019-06-08 01:11:40', '2019-06-08 01:11:40'),
-(245, 105, 'Application', 'تم أسناد طلب جديد رقم 105', 'Company', 3, 0, '2019-06-08 01:12:39', '2019-06-08 01:12:39');
+(258, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 7, 0, '2019-06-11 00:51:33', '2019-06-11 00:51:33'),
+(259, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 9, 0, '2019-06-11 00:51:34', '2019-06-11 00:51:34'),
+(260, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 3, 0, '2019-06-11 00:54:50', '2019-06-11 00:54:50'),
+(261, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 8, 0, '2019-06-11 00:54:51', '2019-06-11 00:54:51'),
+(262, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 3, 0, '2019-06-11 00:55:37', '2019-06-11 00:55:37'),
+(263, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 8, 0, '2019-06-11 00:55:39', '2019-06-11 00:55:39'),
+(264, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 1, 0, '2019-06-11 01:00:32', '2019-06-11 01:00:32'),
+(265, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 4, 0, '2019-06-11 01:00:34', '2019-06-11 01:00:34'),
+(266, 113, 'Application', 'تم أسناد طلب جديد رقم 113', 'Company', 6, 0, '2019-06-11 01:00:35', '2019-06-11 01:00:35'),
+(271, 115, 'Application', 'تم أسناد طلب جديد رقم 115', 'Company', 8, 0, '2019-06-11 01:59:09', '2019-06-11 01:59:09'),
+(272, 115, 'Application', 'تم أسناد طلب جديد رقم 115', 'Company', 9, 0, '2019-06-11 01:59:10', '2019-06-11 01:59:10'),
+(273, 115, 'Application', 'تم أسناد طلب جديد رقم 115', 'Company', 3, 0, '2019-06-11 02:06:30', '2019-06-11 02:06:30'),
+(274, 115, 'Application', 'تم أسناد طلب جديد رقم 115', 'Company', 7, 0, '2019-06-11 02:06:31', '2019-06-11 02:06:31');
 
 -- --------------------------------------------------------
 
@@ -587,7 +422,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `twitter`, `instgram`, `location`, `phone`, `email`, `informations`, `waiting_order_time`, `notify_time`, `not_assign_late_time`) VALUES
-(1, 'https://twitter.com/getsawn', 'https://www.instagram.com/getsawn', 'https://goo.gl/maps/XcUCWUL1Wpa9ZDbB6', '0536600020', '55@ee.com', 'صون لخدمات التكييف صون هي منصة إلكترونية تجيب لك أفضل شركات خدمات التكييف لعند بيتك بضغطة زر! بواسطة شركات معتمدة ذات جودة عالية بإشراف مختصين سعوديين، ثق تماماً .. ستصلك أفضل شركات الرياض وبأفضل الأسعار وبضغطة زر .. هذا وعدنا', 1, 3, 3);
+(1, 'https://twitter.com/getsawn', 'https://www.instagram.com/getsawn', 'https://goo.gl/maps/XcUCWUL1Wpa9ZDbB6', '0536600020', '55@ee.com', 'صون لخدمات التكييف صون هي منصة إلكترونية تجيب لك أفضل شركات خدمات التكييف لعند بيتك بضغطة زر! بواسطة شركات معتمدة ذات جودة عالية بإشراف مختصين سعوديين، ثق تماماً .. ستصلك أفضل شركات الرياض وبأفضل الأسعار وبضغطة زر .. هذا وعدنا', 3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -620,10 +455,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `is_active`, `is_blocked`, `is_export`, `token`, `category_id`, `region_id`, `company_id`, `type`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'swan@swan.com', '', '$2y$10$WmeLbczKuYFnEtCnOgm.ie3phaI4kG.lxAvjrC9bG2LViWv8TUxfW', 1, 0, 1, '', NULL, NULL, NULL, 'Admin', 'FPc65OKTXoQYje5gOoq353CTjmCghu1SqK9A1dFsCBBQeHm3o95dgmQQUFNv', '2017-10-24 09:30:04', '2019-04-12 19:15:10'),
-(3, 'شركة 1', 'company1@swan.com', '123456', '$2y$10$J.nO0dPUmXpPy0zykNYUwOdOrKuLYECMwuCZfRre2tmdijv2jInNm', 1, 0, 1, 'NJD81PpDACjEMzQ3BYl+GMKNRo=', 22, 41, NULL, 'Company', 'lXf2AxXHtjyt7dQFDRRznpgldISUDDCkT1yjCJKICCNjCSkyigtOvo0XZcuf', '2019-05-24 11:45:26', '2019-05-24 11:46:19'),
+(3, 'شركة 1', 'company1@swan.com', '123456', '$2y$10$J.nO0dPUmXpPy0zykNYUwOdOrKuLYECMwuCZfRre2tmdijv2jInNm', 1, 0, 1, 'NJD81PpDACjEMzQ3BYl+GMKNRo=', 26, 41, NULL, 'Company', 'lXf2AxXHtjyt7dQFDRRznpgldISUDDCkT1yjCJKICCNjCSkyigtOvo0XZcuf', '2019-05-24 11:45:26', '2019-05-24 11:46:19'),
 (4, 'hhh', 'wasl@wasl.com', '010136753', '$2y$10$9Y/9vrCZD7PzDG9FNEg/0ee1UrrnZen8R4qHOU2ic7tzylthvXdY.', 1, 1, 1, 'qfbvllCNAB1br6eeC0QvMdZp7Hk=', NULL, 41, 3, 'Team_Work', 'IiDlBkivr8NV0EEQFsP5W0JujF1YBR2BOCJJrxOlytfSiU2yJxKzKuSN3ucC', '2019-05-24 16:35:07', '2019-05-25 12:21:43'),
 (6, 'team2', 'team2@wasl.com', '0510136753', '$2y$10$9Y/9vrCZD7PzDG9FNEg/0ee1UrrnZen8R4qHOU2ic7tzylthvXdY.', 1, 1, 1, 'qfbvllCNAB1br6eeC0QvMdZp7Hk=', NULL, 41, 3, 'Team_Work', 'bPwNbEKs5dKNlZwhyjuDJecyULnCYKUmkHrFw0zgSNtPtoDIrVeMg6hR8xp6', '2019-05-24 16:35:07', '2019-05-25 12:21:43'),
-(7, 'شركة 2', 'company2@swan.com', '01013696655', '$2y$10$s3oUXU26j2qoLRawD5E8EO/5M.CDI95s2HCEHlyEa11JmhIXFcYti', 1, 0, 1, 'Q+7LQgnvhAJX1cv0Aou09qCqIos=', 25, 42, NULL, 'Company', NULL, '2019-05-29 19:52:31', '2019-05-29 19:52:31');
+(7, 'شركة 2', 'company2@swan.com', '01013696655', '$2y$10$s3oUXU26j2qoLRawD5E8EO/5M.CDI95s2HCEHlyEa11JmhIXFcYti', 1, 0, 1, 'Q+7LQgnvhAJX1cv0Aou09qCqIos=', 26, 42, NULL, 'Company', NULL, '2019-05-29 19:52:31', '2019-05-29 19:52:31'),
+(8, 'شركة 33', 'company33@swan.com', '12345633', '$2y$10$J.nO0dPUmXpPy0zykNYUwOdOrKuLYECMwuCZfRre2tmdijv2jInNm', 1, 0, 1, 'NJD81PpDACjEMzQ3BYl+GMKNRo=', 25, 41, NULL, 'Company', 'lXf2AxXHtjyt7dQFDRRznpgldISUDDCkT1yjCJKICCNjCSkyigtOvo0XZcuf', '2019-05-24 11:45:26', '2019-05-24 11:46:19'),
+(9, 'شركة 44', 'company44@swan.com', '0101369665544', '$2y$10$s3oUXU26j2qoLRawD5E8EO/5M.CDI95s2HCEHlyEa11JmhIXFcYti', 1, 0, 1, 'Q+7LQgnvhAJX1cv0Aou09qCqIos=', 25, 42, NULL, 'Company', NULL, '2019-05-29 19:52:31', '2019-05-29 19:52:31');
 
 -- --------------------------------------------------------
 
@@ -703,7 +540,8 @@ ALTER TABLE `categories`
 ALTER TABLE `company_orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `company_id` (`company_id`),
-  ADD KEY `application_id` (`application_id`);
+  ADD KEY `application_id` (`application_id`),
+  ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `countries`
@@ -815,25 +653,25 @@ ALTER TABLE `air_types`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `application_air_types_services`
 --
 ALTER TABLE `application_air_types_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `company_orders`
 --
 ALTER TABLE `company_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -863,13 +701,13 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1380;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT for table `regions`
@@ -899,7 +737,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_devices`
@@ -938,7 +776,8 @@ ALTER TABLE `application_air_types_services`
 --
 ALTER TABLE `company_orders`
   ADD CONSTRAINT `company_orders_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `company_orders_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `company_orders_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `company_orders_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoices`
