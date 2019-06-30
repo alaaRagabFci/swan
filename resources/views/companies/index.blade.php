@@ -34,6 +34,7 @@
                 <th class="col-md-1">الشركة</th>
                 <th class="col-md-1">رقم الجوال</th>
                 <th class="col-md-1">البريد الألكتروني</th>
+                <th class="col-md-1">الأحياء</th>
                 <th class="col-md-1">الفئه</th>
                 <th class="col-md-1">الحاله</th>
                 <th class="col-md-1">خيارات</th>
@@ -44,6 +45,7 @@
                     <td>{{  $row->name }}</td>
                     <td>{{  $row->phone }}</td>
                     <td>{{  $row->email }}</td>
+                    <td>{{  $row->regions }}</td>
                     <td>{{  $row->category }}</td>
                     <td>{{  $row->is_active }}</td>
                     <td>{!! $row->actions !!}</td>
@@ -66,9 +68,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="editEmployeeModalLabel"><i class="fa fa-pencil"></i> تحديث</h4>
       </div>
-      <form role="form" id="update_form" method="POST" class="editForm" data-id="" action="{{ url($modal) }}" data-toggle="validator">
-        <div class="modal-body">
-          @include($modal.'.form_update')
+      <form role="form" id="update_form" method="POST" class="editForm" data-id=""  data-toggle="validator">
+        <div class="modal-body asd">
         </div>
         <div class="modal-footer">
           <button type="submit" id="submit" class="btn btn-primary">تحديث</button>
@@ -83,8 +84,168 @@
       @endsection
 
       @section('scripts')
-        <script src="{{ asset('/admin_ui/assets/layouts/layout4/scripts/insert.js')}}" type="text/javascript"></script>
       <script type="text/javascript">
+          $(document).ready(function() {
+
+              $("#changePasswordModal form").validator().on('submit', function(e){
+                  if (!e.isDefaultPrevented())
+                  {
+                      var self = $(this);
+                      $.ajax({
+                          url: self.closest('form').attr('action')+ '/' + self.data('id') ,
+                          type: "POST",
+                          data: self.serialize(),
+                          success: function(res){
+                              $('#changePasswordModal').modal('hide');
+                              swal({
+                                  title: "تم تغير كلمة السر",
+                                  type: "success",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ec6c62",
+                                  allowOutsideClick: true
+                              });
+                              oTable.draw();
+                          },
+                          error: function(){
+                              swal({
+                                  title: "حدث خطأ",
+                                  type: "error",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ff0000",
+                                  allowOutsideClick: true
+                              });
+                          }
+                      });
+                      e.preventDefault();
+                  }
+              });
+
+              //add siteoption
+              $("#addModal form").on('submit', function(e){
+                  if (!e.isDefaultPrevented())
+                  {
+                      var self = $(this);
+                      var data = convert(self.serialize());
+                      $.ajax({
+                          url: self.closest('form').attr('action'),
+                          type: "POST",
+                          data: self.serialize(),
+                          beforeSend: function(){
+                              var values = Object.values(data);
+                              for (i = 0; i < values.length; i++) {
+                                  if (values[i] == "")
+                                      return false;
+                              }
+                          },
+                          success: function(res){
+                              $('.addForm')[0].reset();
+                              $('#addModal').modal('hide');
+                              swal({
+                                  title: "تم التسجيل بنجاح",
+                                  type: "success",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ec6c62",
+                                  allowOutsideClick: true
+                              });
+                              oTable.draw();
+                          },
+                          error: function(error){
+                              swal({
+                                  title: error['responseJSON']['msg'],
+                                  type: "error",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ff0000",
+                                  allowOutsideClick: true
+                              });
+                          }
+                      });
+                      e.preventDefault();
+                  }
+              });
+
+              /* Edit Form */
+              $(document.body).validator().on('click', '.edit2', function() {
+                  var self = $(this);
+                  self.button('loading');
+                  $.ajax({
+                      url: "{{ url($modal) }}" + '/' +self.data('id') + "/edit" ,
+                      type: "GET",
+                      success: function(res){
+                          self.button('reset');
+                          $('#editModal').modal('show');
+                          $('#editModal form').attr("data-id", self.data('id') );
+                          $('.asd').html(res);
+                      },
+                      error: function(){
+                          self.button('reset');
+                          alert('ff');
+                      }
+                  });
+              });
+
+              //Update
+              $("#editModal form").validator().on('submit', function(e){
+                  if (!e.isDefaultPrevented())
+                  {
+                      var self = $(this);
+                      var data = convert(self.serialize());
+                      $.ajax({
+                          url: "companies/" +  self.attr("data-id"),
+                          type: "POST",
+                          data: "_method=PUT&" + self.serialize(),
+                          beforeSend: function(){
+                              var values = Object.values(data);
+                              for (i = 0; i < values.length; i++) {
+                                  if (values[i] == "")
+                                      return false;
+                              }
+                          },
+                          success: function(res){
+                              $('#editModal').modal('hide');
+                              swal({
+                                  title: "تم التحديث بنجاح",
+                                  type: "success",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ec6c62",
+                                  allowOutsideClick: true
+                              });
+                              oTable.draw();
+                          },
+                          error: function(error){
+                              swal({
+                                  title: error['responseJSON']['msg'],
+                                  type: "error",
+                                  closeOnConfirm: false,
+                                  confirmButtonText: "موافق !",
+                                  confirmButtonColor: "#ff0000",
+                                  allowOutsideClick: true
+                              });
+                          }
+                      });
+                      e.preventDefault();
+                  }
+              });
+
+              function convert(str){
+                  str = str.replace(/\(|\)/g,'');
+                  var arr = str.split('&');
+                  var obj = {};
+                  for (var i = 0; i < arr.length; i++) {
+                      var singleArr = arr[i].trim().split('=');
+                      var name = singleArr[0];
+                      var value = singleArr[1];
+                      if (obj[name] == undefined && name != "email") {
+                          obj[name] = value;
+                      }
+                  }
+                  return obj;
+              }
+          });
        $(document).ready(function() {
         oTable = $('#descriptions').DataTable({
           "processing": true,
@@ -102,6 +263,7 @@
           {data: 'name', name: 'name'},
           {data: 'phone', name: 'phone'},
           {data: 'email', name: 'email'},
+          {data: 'regions', name: 'regions'},
           {data: 'category', name: 'category'},
           {data: 'is_active', name: 'is_active'},
           {data: 'actions', name: 'actions', orderable: false, searchable: false}
@@ -109,5 +271,5 @@
         })
       });
     </script>
-      <script src="{{ asset('/admin-ui/js/for_pages/table.js') }}"></script>
+     <script src="{{ asset('/admin-ui/js/for_pages/table.js') }}"></script>
     @endsection

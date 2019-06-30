@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label class="control-label visible-ie8 visible-ie9">البريد الألكتروني</label>
-                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="البريد الألكتروني" value="{{ old('email') }}" name="email" /> </div>
+                    <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="البريد الألكتروني" value="{{ old('phone') }}" name="phone" /> </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">الرقم السري</label>
                     <input class="form-control form-control-solid placeholder-no-fix" required type="password" autocomplete="off" placeholder="الرقم السري" name="password" value="{{ old('password') }}" /> </div>

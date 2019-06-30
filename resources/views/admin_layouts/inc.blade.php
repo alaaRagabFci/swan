@@ -221,6 +221,8 @@
                 <h4 class="modal-title" id="addModalLabel"><i class="fa fa-plus-circle"></i> اختيار شركة للطلب</h4>
             </div>
             <form role="form" method="POST" class="addForm" action="{{ url('/add-service') }}" data-toggle="validator">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" class="application_id" name="orderId" value="">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleInputFile"> نوع المكيف</label>
@@ -477,6 +479,20 @@
             self.button('reset');
 
         });
+
+        $(document.body).validator().on('click', '.hideAirService', function() {
+            var self = $(this);
+            $.ajax({
+                url: "delete-air-service-type/" + self.data('id'),
+                type: "get",
+                success: function(res){
+                    self.closest('.hideRow').hide()
+                },
+                error: function(error){
+                }
+            });
+        });
+
         $(document.body).validator().on('click', '.seenNotification', function() {
             $.ajax({
                 url: "update-notifications-seen/" + '{!! Auth::user()->id !!}',
@@ -503,6 +519,7 @@
             var self = $(this);
             self.button('loading');
             $('#addService form').attr("data-id", self.data('id') );
+            $('.application_id').val(self.data('id') );
             $('#addService').modal('show');
             self.button('reset');
 
@@ -558,11 +575,8 @@
             {
                 var self = $(this);
                 $.ajax({
-                    url: self.closest('form').attr('action') +"/" + self.data('id'),
+                    url: self.closest('form').attr('action'),
                     type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
                     data: self.serialize(),
                     beforeSend: function(){
                         if ($('#airTypeId').val() == "" || $('#serviceId').val() == "" || $('#numberAir').val() == "")
@@ -703,9 +717,15 @@
                     alert('من فضلك أختر اختيار علي الأقل');
                     return false;
                 }else{
-                    $('.airTypes').val(jsonStringAirTypes);
-                    $('.serviceTypes').val(jsonStringServiceTypes);
-                    $('.numbers').val(jsonStringNumbers);
+                    if($('.hideRow').css('display') == 'none'){
+                        $('.airTypes').val(null);
+                        $('.serviceTypes').val(null);
+                        $('.numbers').val(null);
+                    }else{
+                        $('.airTypes').val(jsonStringAirTypes);
+                        $('.serviceTypes').val(jsonStringServiceTypes);
+                        $('.numbers').val(jsonStringNumbers);
+                    }
                     $.ajax({
                         url: self.closest('form').attr('action') + "/" +  self.attr("data-id"),
                         type: "POST",

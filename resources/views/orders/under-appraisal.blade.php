@@ -28,6 +28,7 @@
             <th class="col-md-1">نوع المكيف</th>
             <th class="col-md-1">الحي</th>
             <th class="col-md-1">الشركة</th>
+            <th class="col-md-1">الوقت</th>
             <th class="col-md-1">خيارات</th>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                 <td>{{  $row->getAirTypes }}</td>
                 <td>{{  $row->region }}</td>
                 <td>{{  $row->company }}</td>
+                <td>{{  $row->created_at }}</td>
                 <td>{!! $row->actions !!}</td>
               </tr>
             @endforeach
@@ -130,6 +132,7 @@
           {data: 'getAirTypes', name: 'getAirTypes'},
           {data: 'region', name: 'region'},
           {data: 'company', name: 'company'},
+          {data: 'created_at', name: 'created_at'},
           {data: 'actions', name: 'actions'}
         ],
         order: [ [0, 'desc'] ]

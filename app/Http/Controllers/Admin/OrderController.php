@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Util\AbstractController;
+use App\Models\AirType;
+use App\Models\Hour;
+use App\Models\Service;
 use App\Services\AirTypeService;
 use App\Services\RegionService;
 use App\Services\TheServiceService;
@@ -63,6 +66,24 @@ class OrderController extends AbstractController {
         $data  = $request->all();
         $order = $this->orderService->updateOrder($data, $id);
 
+        return $order;
+    }
+
+    public function orderNow()
+    {
+        $airTypes = AirType::get();
+        $services = Service::get();
+        $hours = Hour::get();
+        return view('front.order-now')
+            ->with('admin', true)
+            ->with('hours', $hours)
+            ->with('airTypes', $airTypes)
+            ->with('services', $services);
+    }
+
+    public function makeOrder(Request $request){
+        $data  = $request->all();
+        $order = $this->orderService->makeOrder($data, true);
         return $order;
     }
 
@@ -153,6 +174,12 @@ class OrderController extends AbstractController {
             ->with('companies', $companies)
             ->with('modal', 'orders')
             ->with('tableData', $tableData);
+    }
+
+    public function deleteAirService(Request $request, $id)
+    {
+        $airServiceType = $this->orderService->deleteAirService($id);
+        return $airServiceType;
     }
 
     public function underAppraisalOrders(Request $request)

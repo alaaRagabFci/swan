@@ -8,6 +8,11 @@ use App\Models\ServicePriceDetails;
 
 class AirTypeServiceService
 {
+    public $logService;
+    public function __construct(LogService $logService){
+        $this->logService = $logService;
+    }
+
     /**
      * List all Client.
      * @author Alaa <alaaragab34@gmail.com>
@@ -42,14 +47,17 @@ class AirTypeServiceService
         return $tableData ;
     }
 
-    public function addService($parameters, $orderId)
+    public function addService($parameters)
     {
         $service = new ApplicationAirTypeService();
-        $service->application_id = $orderId;
+        $service->application_id = $parameters['orderId'];
         $service->service_id = $parameters['service_id'];
         $service->air_type_id = $parameters['air_type_id'];
         $service->number = $parameters['number'];
         $service->save();
+
+        $this->logService->createLog(\Auth::user()->id, 'Application', $parameters['orderId'],  ' تم أضافة خدمة جديده رقم '. $service->id );
+
         return $service;
 
     }

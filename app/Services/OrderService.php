@@ -9,7 +9,6 @@ use App\Jobs\SendNotificationCompanies;
 use App\Models\ApplicationAirTypeService;
 use App\Models\CompanyOrder;
 use App\Models\ServicePriceDetails;
-use App\Models\Setting;
 use App\Models\UserDevice;
 use App\Models\UserRate;
 use App\Services\NotificationService;
@@ -23,10 +22,11 @@ use Auth;
 
 class OrderService
 {
-    public $notificationService, $categoryService;
-    public function __construct(NotificationService $notificationService, CategoryService $categoryService){
+    public $notificationService, $categoryService, $logService;
+    public function __construct(NotificationService $notificationService, CategoryService $categoryService, LogService $logService){
         $this->notificationService = $notificationService;
         $this->categoryService = $categoryService;
+        $this->logService = $logService;
     }
 
 //    All orders
@@ -42,10 +42,6 @@ class OrderService
     public function datatables($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('company', function (Application $application){
                 if($application->getCompany)
                     return $application->getCompany->name;
@@ -111,7 +107,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['actions', 'region', 'getServiceTypes', 'getAirTypes', 'status', 'company', 'air_number'])->make(true);
+            ->rawColumns(['actions', 'getServiceTypes', 'getAirTypes', 'status', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -185,7 +181,7 @@ class OrderService
     public function getOrder($orderId)
     {
         try {
-            $order = Application::with('getRegion', 'getServiceTypes', 'getAirTypes')->findOrFail($orderId);
+            $order = Application::with('getServiceTypes', 'getAirTypes')->findOrFail($orderId);
             return $order;
         }
         catch(ModelNotFoundException $ex){
@@ -330,7 +326,6 @@ class OrderService
                 ]
             );
 
-
             $this->notificationService->create(
                 $order->company_id,
                 $order->id,
@@ -342,6 +337,8 @@ class OrderService
         }
 
         $order->save();
+
+        $this->logService->createLog(Auth::user()->id, 'Application', $orderId,  ' تغيير حالة الطلب الي '. $status );
         return $order;
     }
 
@@ -490,6 +487,8 @@ class OrderService
             UserType::COMPANY
         );
 
+        $this->logService->createLog(Auth::user()->id, 'Application', $orderId,  ' تم أسناد الشركة رقم '. $parameters['company_id'] );
+
         return $order;
     }
 
@@ -508,15 +507,20 @@ class OrderService
                 $airTypes = json_decode($parameters['airTypes'], true);
                 $serviceTypes = json_decode($parameters['serviceTypes'], true);
                 $numbers = json_decode($parameters['numbers'], true);
-                for ($i = 0; $i < count($airTypes) ; $i++){
-                    $air_type_service = new ApplicationAirTypeService();
-                    $air_type_service->application_id = $orderId;
-                    $air_type_service->air_type_id = $airTypes[$i];
-                    $air_type_service->service_id = $serviceTypes[$i];
-                    $air_type_service->number = $numbers[$i];
-                    $air_type_service->save();
+                if($airTypes){
+                    for ($i = 0; $i < count($airTypes) ; $i++){
+                        $air_type_service = new ApplicationAirTypeService();
+                        $air_type_service->application_id = $orderId;
+                        $air_type_service->air_type_id = $airTypes[$i];
+                        $air_type_service->service_id = $serviceTypes[$i];
+                        $air_type_service->number = $numbers[$i];
+                        $air_type_service->save();
+                    }
                 }
             }
+
+            $this->logService->createLog(Auth::user()->id, 'Application', $orderId,  ' تم تعديل الطلب ' );
+
             return \Response::json(['msg'=>'تم تحديث الطلب بنجاح'],200);
         }
         catch(ModelNotFoundException $ex){
@@ -524,7 +528,7 @@ class OrderService
         }
     }
 
-    public function makeOrder($parameters)
+    public function makeOrder($parameters, $admin = false)
     {
         $airTypes = json_decode($parameters['airTypes'], true);
         $serviceTypes = json_decode($parameters['serviceTypes'], true);
@@ -532,12 +536,12 @@ class OrderService
         $application = new Application();
         $application->name =$parameters['name'];
         $application->phone =$parameters['phone'];
-        $application->region_id =$parameters['region_id'];
+        $application->region =$parameters['region'];
         $application->hour_id =$parameters['hour_id'];
         $application->day =date('Y-m-d', strtotime($parameters['day']));
         $user = Application::where('phone', $parameters['phone'])->where('is_active', 1)->first();
         $redirect = 0;
-        if($user){
+        if($user || $admin){
             $redirect = 0;
             $application->status = OrderStatus::PENDING;
             $application->is_active = true;
@@ -552,14 +556,14 @@ class OrderService
             $application->save();
         }
         if($application){
-            for ($i = 0; $i < count($airTypes) ; $i++){
                 $air_type_service = new ApplicationAirTypeService();
-                $air_type_service->application_id = $application->id;
-                $air_type_service->air_type_id = $airTypes[$i];
-                $air_type_service->service_id = $serviceTypes[$i];
-                $air_type_service->number = $numbers[$i];
-                $air_type_service->save();
-            }
+        }
+        for ($i = 0; $i < count($airTypes) ; $i++){
+            $air_type_service->application_id = $application->id;
+            $air_type_service->air_type_id = $airTypes[$i];
+            $air_type_service->service_id = $serviceTypes[$i];
+            $air_type_service->number = $numbers[$i];
+            $air_type_service->save();
         }
         if($user)
             dispatch(new SendNotificationCompanies($application));
@@ -572,6 +576,10 @@ class OrderService
         return \Response::json(['msg'=> $application, 'redirect' => $redirect],200);
     }
 
+    public function deleteAirService($id){
+        ApplicationAirTypeService::where('id', $id)->delete();
+        return \Response::json(['msg'=> "Deleted successfully"],200);
+    }
     /**
      * Create random confirmation code
      * @author Alaa <a.shawkey@friendycar.com>
@@ -594,10 +602,6 @@ class OrderService
     public function datatablesAccepted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -645,7 +649,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -658,10 +662,6 @@ class OrderService
     public function datatablesCompanyAccepted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -709,7 +709,7 @@ class OrderService
                     ->with('getInvoice', $data->getInvoice)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number', 'actions'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number', 'actions'])->make(true);
 
         return $tableData ;
     }
@@ -723,10 +723,6 @@ class OrderService
     public function datatablesCancelled($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -736,6 +732,10 @@ class OrderService
                 }
                 $arr .= '</ul>';
                 return $arr;
+            })
+            ->addColumn('company', function (Application $application){
+                if($application->getCompany)
+                    return $application->getCompany->name;
             })
             ->editColumn('getServiceTypes', function ($serviceTypes) {
                 $arr = "<ul>";
@@ -770,7 +770,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number', 'company'])->make(true);
 
         return $tableData ;
     }
@@ -784,10 +784,6 @@ class OrderService
     public function datatablesHanged($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -797,6 +793,10 @@ class OrderService
                 }
                 $arr .= '</ul>';
                 return $arr;
+            })
+            ->addColumn('company', function (Application $application){
+                if($application->getCompany)
+                    return $application->getCompany->name;
             })
             ->editColumn('getServiceTypes', function ($serviceTypes) {
                 $arr = "<ul>";
@@ -831,7 +831,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number', 'company'])->make(true);
 
         return $tableData ;
     }
@@ -844,10 +844,6 @@ class OrderService
     public function datatablesAssignedOrders($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -891,7 +887,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -905,10 +901,6 @@ class OrderService
     public function datatablesCompleted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -956,7 +948,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -969,10 +961,6 @@ class OrderService
     public function datatablesCompanyCompleted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1013,7 +1001,7 @@ class OrderService
                     return 'لا توجد نوع';
                 }
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1031,10 +1019,6 @@ class OrderService
     public function datatablesNew($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1044,6 +1028,10 @@ class OrderService
                 }
                 $arr .= '</ul>';
                 return $arr;
+            })
+            ->addColumn('company', function (Application $application){
+                if($application->getCompany)
+                    return $application->getCompany->name;
             })
             ->editColumn('getServiceTypes', function ($serviceTypes) {
                 $arr = "<ul>";
@@ -1078,17 +1066,13 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number', 'company'])->make(true);
 
         return $tableData ;
     }
     public function datatablesSms($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1132,7 +1116,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1145,9 +1129,6 @@ class OrderService
     public function datatablesCompanyNew($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (CompanyOrder $application){
-                    return $application->getApplication->getRegion->name;
-            })
             ->addColumn('air_number', function (CompanyOrder $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->getApplication->id);
@@ -1190,7 +1171,7 @@ class OrderService
                     ->with('id', $data->getApplication->id)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1204,10 +1185,6 @@ class OrderService
     public function datatablesUnderAppraisal($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1256,7 +1233,7 @@ class OrderService
                     ->with('status', $data->status)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'actions', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1269,10 +1246,6 @@ class OrderService
     public function datatablesTeamAccepted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1320,7 +1293,7 @@ class OrderService
                     ->with('getInvoice', $data->getInvoice)
                     ->render();
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number', 'actions'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number', 'actions'])->make(true);
 
         return $tableData ;
     }
@@ -1333,10 +1306,6 @@ class OrderService
     public function datatablesTeamCompleted($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('air_number', function (Application $application){
                 $arr = "<ul>";
                 $numbers = $this->airTypesNumber($application->id);
@@ -1377,7 +1346,7 @@ class OrderService
                     return 'لا توجد نوع';
                 }
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1390,10 +1359,6 @@ class OrderService
     public function datatablesOrdersRated($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('company', function (Application $application){
                 if($application->getCompany)
                     return $application->getCompany->name;
@@ -1440,7 +1405,7 @@ class OrderService
                     ->with('id', $data->id)
                     ->render();
             })
-            ->rawColumns(['actions', 'region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
+            ->rawColumns(['actions', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1453,10 +1418,6 @@ class OrderService
     public function datatablesOpenedNotRated($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('company', function (Application $application){
                 if($application->getCompany)
                     return $application->getCompany->name;
@@ -1497,7 +1458,7 @@ class OrderService
                     return 'لا توجد نوع';
                 }
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }
@@ -1510,10 +1471,6 @@ class OrderService
     public function datatablesLinkNotOpened($orders)
     {
         $tableData = Datatables::of($orders)
-            ->addColumn('region', function (Application $application){
-                if($application->getRegion)
-                    return $application->getRegion->name;
-            })
             ->addColumn('company', function (Application $application){
                 if($application->getCompany)
                     return $application->getCompany->name;
@@ -1554,7 +1511,7 @@ class OrderService
                     return 'لا توجد نوع';
                 }
             })
-            ->rawColumns(['region', 'getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
+            ->rawColumns(['getServiceTypes', 'getAirTypes', 'company', 'air_number'])->make(true);
 
         return $tableData ;
     }

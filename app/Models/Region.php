@@ -13,4 +13,9 @@ class Region extends Model
     {
         return $this->belongsTo('App\Models\Country','country_id','id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User','user_region','user_id','region_id');
+    }
 }

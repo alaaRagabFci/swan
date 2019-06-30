@@ -15,7 +15,7 @@
 
 <div class="form-group">
     <label for="exampleInputPassword1">البريد الألكتروني</label>
-    <input type="email" name="email" required class="form-control">
+    <input type="email" name="email" id="email" class="form-control">
     <span class="help-block with-errors errorName"></span>
 </div>
 
@@ -37,11 +37,12 @@
 
 <div class="form-group">
     <label for="exampleInputFile"> الحي</label>
-    <select required  class="form-control" name="region_id">
-        <option selected value="">أختر الحي </option>
-        @foreach($regions as $region)
-            <option value="{!! $region->id !!}">{!! $region->name !!}</option>
-        @endforeach
+    <select required name="region_id[]" class="form-control select2-multiple" multiple>
+        <optgroup label="regions">
+            @foreach($regions as $region_id => $region_name)
+                <option value="{!! $region_id !!}">{!! $region_name !!}</option>
+            @endforeach
+        </optgroup>
     </select>
 </div>
 

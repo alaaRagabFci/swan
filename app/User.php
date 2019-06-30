@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'is_active', 'is_blocked', 'is_export', 'services', 'token', 'category_id', 'company_id', 'region_id', 'type', 'password'
+        'name', 'email', 'phone', 'is_active', 'is_blocked', 'is_export', 'services', 'token', 'category_id', 'company_id', 'type', 'password'
     ];
 
     public function getCategory()
@@ -23,9 +23,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Category','category_id','id');
     }
 
-    public function getRegion()
+    public function regions()
     {
-        return $this->belongsTo('App\Models\Region','region_id','id');
+        return $this->belongsToMany('App\Models\Region','user_region','user_id','region_id');
     }
 
     public function getCompany()

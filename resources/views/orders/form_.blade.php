@@ -37,22 +37,24 @@
 
 <div class="form-group">
     <label for="exampleInputFile"> الحي</label>
-    <select required  class="form-control" name="region_id">
-        <option selected value="">أختر الحي </option>
-        @foreach($regions as $region)
-            @if($order->getRegion->id == $region->id)
-                <option  selected value="{!! $region->id !!}">{!! $region->name !!}</option>
-            @else
-                <option  value="{!! $region->id !!}">{!! $region->name !!}</option>
-            @endif
-        @endforeach
-    </select>
+    <input type="text" name="region" value="{{ $order->region }}" required class="form-control">
+    <span class="help-block with-errors errorName"></span>
+    {{--<select required  class="form-control" name="region_id">--}}
+        {{--<option selected value="">أختر الحي </option>--}}
+        {{--@foreach($regions as $region)--}}
+            {{--@if($order->getRegion->id == $region->id)--}}
+                {{--<option  selected value="{!! $region->id !!}">{!! $region->name !!}</option>--}}
+            {{--@else--}}
+                {{--<option  value="{!! $region->id !!}">{!! $region->name !!}</option>--}}
+            {{--@endif--}}
+        {{--@endforeach--}}
+    {{--</select>--}}
 </div>
 
 @foreach($orderAirServices as $airService)
-    <div class="row">
-        <div class="col-xs-4">
-    <div class="form-group">
+    <div class="row hideRow">
+        <div class="col-xs-3">
+            <div class="form-group">
     <label for="exampleInputFile"> نوع التكييف</label><br>
     @foreach($airTypes as $type)
     @if($airService->air_type_id == $type->id)
@@ -63,7 +65,7 @@
     @endforeach
     </div>
         </div>
-        <div class="col-xs-4">
+    <div class="col-xs-3">
             <div class="form-group">
     <label for="exampleInputFile"> نوع الخدمه</label><br>
     @foreach($services as $service)
@@ -75,12 +77,18 @@
     @endforeach
         </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-3">
         <div class="form-group">
-    <label for="exampleInputPassword1">عدد التكييفات</label>
-    <input type="number" name="number" value="{{ $airService->number }}" required class="form-control">
-    <span class="help-block with-errors errorName"></span>
+        <label for="exampleInputPassword1">عدد التكييفات</label>
+        <input type="number" name="number" value="{{ $airService->number }}" required class="form-control">
+        <span class="help-block with-errors errorName"></span>
+        </div>
     </div>
+    <div class="col-xs-3">
+        <div class="form-group">
+            <label for="exampleInputFile"> خيارات</label><br>
+        <button type="button" class="hideAirService Btn btn btn-default btn-xs" data-id="{{ $airService->id }}"><i class="fa fa-times"></i></button>
+        </div>
     </div>
     </div>
 @endforeach

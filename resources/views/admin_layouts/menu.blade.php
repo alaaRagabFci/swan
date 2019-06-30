@@ -48,6 +48,14 @@
     </ul>
 </li>
 
+<li class="nav-item {{Request::is('add-order-admin') ? 'start active open':'' }}">
+    <a href="{{ url('add-order-admin') }}" class="nav-link nav-toggle">
+        <i class="fa fa-plus"></i>
+        <span class="title">أضافة طلب</span>
+        <span class="selected"></span>
+    </a>
+</li>
+
 <li class="nav-item {{Request::is('orders', 'sms_not_confirmed', 'new-orders', 'not-assign-orders', 'accepted-orders', 'cancelled-orders', 'hanging-orders', 'under-appraisal-orders', 'completed-orders') ? 'start active open':'' }}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-shopping-cart"></i>
@@ -230,6 +238,14 @@
     <a href="{{ url('services') }}" class="nav-link nav-toggle">
         <i class="fa fa-server"></i>
         <span class="title">الخدمات</span>
+        <span class="selected"></span>
+    </a>
+</li>
+
+<li class="nav-item {{Request::is('logs') ? 'start active open':'' }}">
+    <a href="{{ url('logs') }}" class="nav-link nav-toggle">
+        <i class="fa fa-history" aria-hidden="true"></i>
+        <span class="title">السجلات</span>
         <span class="selected"></span>
     </a>
 </li>

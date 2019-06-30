@@ -42,7 +42,6 @@ class FrontController {
     public function checkPhone(Request $request)
     {
         $parameters = $request->all();
-//        var_dump($parameters); die;
         $applications = Application::where('phone', $parameters['phone'])->orderby('id', 'DESC')->get();
         if(count($applications) > 0){
             return view('front.order-status', compact('applications'));
@@ -62,12 +61,11 @@ class FrontController {
     {
         $airTypes = AirType::get();
         $services = Service::get();
-        $regions = Region::get();
         $hours = Hour::get();
         return view('front.order-now')
+                ->with('admin', false)
                ->with('hours', $hours)
                ->with('airTypes', $airTypes)
-               ->with('regions', $regions)
                ->with('services', $services);
     }
 

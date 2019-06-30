@@ -5,6 +5,7 @@ use App\Constants\UserType;
 use App\Models\UserDevice;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\VarDumper\VarDumper;
 use Yajra\Datatables\Datatables as Datatables;
 use App\Helpers\PushNotification;
 
@@ -16,7 +17,10 @@ class UserService
      */
     public function listCompanies()
     {
-        return User::where('type' , UserType::COMPANY)->get();
+        return User::with(array(
+            'regions' => function($query){
+                $query->select('name');
+            }))->where('type' , UserType::COMPANY)->get();
     }
 
     /**
@@ -44,16 +48,21 @@ class UserService
                 if($user->getCategory)
                     return $user->getCategory->name;
             })
-            ->addColumn('region', function (User $user){
-                if($user->getRegion)
-                    return $user->getRegion->name;
+            ->editColumn('regions', function ($regions) {
+                $arr = "<ul>";
+                foreach ($regions->regions as $region) {
+
+                    $arr .='<li>'. $region->name .'</li>';
+                }
+                $arr .='</ul>';
+                return $arr;
             })
             ->addColumn('actions', function ($data)
             {
-                return view('partials.actionBtns')->with('controller','companies')
+                return view('companies.actionBtns')->with('controller','companies')
                     ->with('id', $data->id)
                     ->render();
-            })->rawColumns(['actions', 'is_blocked', 'is_active', 'category', 'region'])->make(true);
+            })->rawColumns(['actions', 'is_blocked', 'is_active', 'category', 'regions'])->make(true);
 
         return $tableData ;
     }
@@ -78,8 +87,10 @@ class UserService
             if(User::where('phone', $parameters['phone'])->first())
                 return \Response::json(['msg'=>'رقم الجوال موجود بالفعل'],404);
 
-            if(User::where('email', $parameters['email'])->first())
-                return \Response::json(['msg'=>'البريد الألكتروني موجود بالفعل'],404);
+                if($parameters['email'] != ""){
+                    if(User::where('email', $parameters['email'])->first())
+                        return \Response::json(['msg'=>'البريد الألكتروني موجود بالفعل'],404);
+                }
 
             $token = $this->generateCompanyToken($parameters);
             $parameters['token'] = $token["token"];
@@ -87,7 +98,9 @@ class UserService
             $parameters['password'] = bcrypt($parameters['password']);
             $parameters['type'] = UserType::COMPANY;
             $user = new User();
-            $user->create($parameters);
+            $userId = $user->create($parameters)->id;
+            $user_ = User::find($userId);
+            $user_->regions()->attach($parameters['region_id']);
             return \Response::json(['msg'=>'تم التسجيل بنجاح'],200);
         }
         catch(ModelNotFoundException $ex){
@@ -145,6 +158,12 @@ class UserService
                 return \Response::json(['msg'=>'رقم الجوال موجود بالفعل'],404);
 
             $user->update($parameters);
+
+            \DB::table('user_region')->where('user_id', $userId)->delete();
+            foreach ($parameters['region_id'] as $key => $value) {
+                $user->regions()->attach($value);
+            }
+
             return \Response::json(['msg'=>'تم التحديث بنجاح'],200);
         }
         catch(ModelNotFoundException $ex){

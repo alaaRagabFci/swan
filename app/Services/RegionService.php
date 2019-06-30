@@ -16,6 +16,11 @@ class RegionService
         return Region::get();
     }
 
+    public function getRegions()
+    {
+        return Region::pluck('name','id');
+    }
+
     /**
      * Datatebles
      * @param client

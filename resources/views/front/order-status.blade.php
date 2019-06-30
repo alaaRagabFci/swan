@@ -49,7 +49,7 @@
 														{{ $application->day  .' '. date("g:i a", strtotime($application->getHour->hour))}}
 													</td>
 													<td>
-														{{ $application->getRegion->name }}
+														{{ $application->region }}
 													</td>
 													<td>
 														@if($application->status == 'Completed')

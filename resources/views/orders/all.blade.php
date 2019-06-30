@@ -29,6 +29,7 @@
                 <th class="col-md-1">الحي</th>
                 <th class="col-md-1">الحاله</th>
                 <th class="col-md-1">الشركة</th>
+                <th class="col-md-1">الوقت</th>
                 <th class="col-md-1">خيارات</th>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
                     <td>{{  $row->region }}</td>
                     <td>{{  $row->status }}</td>
                     <td>{{  $row->company }}</td>
+                    <td>{{  $row->created_at }}</td>
                     <td>{!! $row->actions !!}</td>
                   </tr>
                   @endforeach
@@ -84,6 +86,7 @@
           {data: 'region', name: 'region'},
           {data: 'status', name: 'status'},
           {data: 'company', name: 'company'},
+          {data: 'created_at', name: 'created_at'},
           {data: 'actions', name: 'actions'}
           ],
           order: [ [0, 'desc'] ]

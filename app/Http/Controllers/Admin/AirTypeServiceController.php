@@ -40,10 +40,10 @@ class AirTypeServiceController extends AbstractController {
               ->with('tableData', $tableData);
     }
 
-    public function addService(Request $request, $id)
+    public function addService(Request $request)
     {
         $parameters = $request->all();
-        $service = $this->airTypeServiceService->addService($parameters, $id);
+        $service = $this->airTypeServiceService->addService($parameters);
         return $service;
     }
 

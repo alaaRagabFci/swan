@@ -6,13 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    protected $fillable = ['name', 'phone', 'hour_id', 'day', 'region_id', 'status', 'longitude', 'latitude', 'company_id', 'reason', 'confirmation_code', 'is_active'];
+    protected $fillable = ['name', 'phone', 'hour_id', 'day', 'region', 'status', 'longitude', 'latitude', 'company_id', 'reason', 'confirmation_code', 'is_active'];
     public $timestamps  = false;
-
-    public function getRegion()
-    {
-        return $this->belongsTo('App\Models\Region','region_id','id');
-    }
 
     public function getHour()
     {

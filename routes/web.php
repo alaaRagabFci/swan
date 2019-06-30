@@ -51,6 +51,9 @@ Route::group(['middleware' => ['web']], function () {
         //regions
         Route::Resource('/regions', 'RegionController');
 
+        //logs
+        Route::Resource('/logs', 'LogController');
+
         //hours
         Route::Resource('/hours', 'HourController');
 
@@ -97,9 +100,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::GET('/get-order-details/{id}', 'OrderController@getInvoiceDetails');
         Route::GET('/agree-order/{id}', 'OrderController@agreeOrder');
         Route::POST('/assign-company-orders', 'OrderController@assignCompanyOrder');
-        Route::POST('/add-service/{id}', 'AirTypeServiceController@addService');
+        Route::POST('/add-service', 'AirTypeServiceController@addService');
         Route::POST('/add-invoice/{id}', 'InvoiceController@addInvoice');
         Route::GET('/rate-details/{id}', 'OrderController@getOrderDetails');
+        Route::GET('/add-order-admin', 'OrderController@orderNow');
+        Route::POST('/add-order-admin', 'OrderController@makeOrder');
+        Route::GET('/delete-air-service-type/{id}', 'OrderController@deleteAirService');
         Route::Resource('/orders', 'OrderController');
 
     });

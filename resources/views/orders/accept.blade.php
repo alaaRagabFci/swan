@@ -28,6 +28,7 @@
             <th class="col-md-1">عدد التكييفات</th>
             <th class="col-md-1">الحي</th>
             <th class="col-md-1">الشركة</th>
+            <th class="col-md-1">الوقت</th>
             <th class="col-md-1">خيارات</th>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                 <td>{{  $row->air_number }}</td>
                 <td>{{  $row->region }}</td>
                 <td>{{  $row->company }}</td>
+                <td>{{  $row->created_at }}</td>
                 <td>{!! $row->actions !!}</td>
               </tr>
             @endforeach
@@ -78,6 +80,7 @@
           {data: 'air_number', name: 'air_number'},
           {data: 'region', name: 'region'},
           {data: 'company', name: 'company'},
+          {data: 'created_at', name: 'created_at'},
           {data: 'actions', name: 'actions'}
         ],
         order: [ [0, 'desc'] ]

@@ -77,23 +77,16 @@
 									<h4 class='heading-type-ser'>عدد المكيفات</h4>
 									<p class="para1"> في حال كان العدد أقل من 3 مكيفات فإن الفاتورة لن تقل عن 330 ريال.</p>
 									<select style="width:90%;" name="number" class="co_conditioners_number">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
+										@for($i = 1; $i <= 100; $i++)
+										<option value="{{ $i }}">{{ $i }}</option>
+										@endfor
 									</select>
 								</div>
 
 							</div>
 							<div class="form-row hide more_co">
-								<p class='txt-more'>مزيد من المكيفات؟  </p>
-								<div id=" " class="more_co_btn avia-button  avia-icon_select-no avia-color-silver avia-size-medium  ">اضافة نوع مكيف جديد </div>
+								<p class='txt-more'>مزيد من المكيفات أو أضافة خدمة أخري؟  </p>
+								<div id=" " class="more_co_btn avia-button  avia-icon_select-no avia-color-silver avia-size-medium  ">اضافة نوع مكيف جديد أو خدمة أخري </div>
 							</div>
 						</div>
 
@@ -124,11 +117,12 @@
 								</div>
 								<div class="width_50 ">
 									<p style="font-weight: bold;">الحي</p>
-									<select required style="width:80%;" name="region_id" id="co_time">
-										@foreach($regions as $region)
-											<option value="{{ $region->id }}">{{ $region->name }}</option>
-										@endforeach
-									</select>
+									{{--<select required style="width:80%;" name="region_id" id="co_time">--}}
+										{{--@foreach($regions as $region)--}}
+											{{--<option value="{{ $region->id }}">{{ $region->name }}</option>--}}
+										{{--@endforeach--}}
+									{{--</select>--}}
+									<input required type="text"  style="width:80%; margin-bottom:0" class="form-ctrl" name="region" placeholder="الحي"/>
 								</div>
 							</div>
 
@@ -230,6 +224,11 @@
 	$(".orderNow").on('submit', function(e){
 		if (!e.isDefaultPrevented())
 		{
+		    @if($admin)
+				var url = 'add-order-admin';
+			@else
+            	var url = 'order-now';
+			@endif
 			var self = $(this);
 			var air_types = getCheckedBoxes("co_conditioners_type");
 			var service_types = getCheckedBoxes("co_service");
@@ -245,7 +244,7 @@
 				$('.serviceTypes').val(jsonStringServiceTypes);
 				$('.numbers').val(jsonStringNumbers);
 				$.ajax({
-					url: "order-now",
+					url: url,
 					type: "POST",
 					data: self.serialize(),
 					success: function(res){
@@ -382,16 +381,9 @@
 									<h4 class='heading-type-ser'>عدد المكيفات</h4>
 									<p class="para1"> في حال كان العدد أقل من 3 مكيفات فإن الفاتورة لن تقل عن 330 ريال.</p>
 									<select style="width:90%;" name="number" class="co_conditioners_number">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
+										@for($i = 1; $i <= 100; $i++)
+                    <option value="{{ $i }}">{{ $i }}</option>
+										@endfor
 									</select>
 								</div>
 `);

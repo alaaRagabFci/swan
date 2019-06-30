@@ -2,20 +2,16 @@
 
 use App\Http\Controllers\Util\AbstractController;
 use Illuminate\Http\Request;
-use App\Services\UserService;
-use App\Services\CategoryService;
-use App\Services\RegionService;
+use App\Services\LogService;
 use Response;
 
-class UserController extends AbstractController {
+class LogController extends AbstractController {
 
-    public $userService, $regionService, $categoryService;
-    public function __construct(UserService $userService, CategoryService $categoryService, RegionService $regionService)
+    public $logService;
+    public function __construct(LogService $logService)
     {
         $this->middleware('auth');
-        $this->userService = $userService;
-        $this->categoryService = $categoryService;
-        $this->regionService = $regionService;
+        $this->logService = $logService;
     }
 
     /**
@@ -24,19 +20,15 @@ class UserController extends AbstractController {
      */
     public function index(Request $request)
     {
-        $categories  = $this->categoryService->listCategories();
-        $regions  = $this->regionService->getRegions();
-        $users  = $this->userService->listCompanies();
-        $tableData = $this->userService->datatables($users);
+        $logs  = $this->logService->listLogs();
+        $tableData = $this->logService->datatables($logs);
 
         if($request->ajax())
             return $tableData;
 
-        return view('companies.index')
-              ->with('modal', 'companies')
-              ->with('categories', $categories)
-              ->with('regions', $regions)
-              ->with('modal_', 'شركه')
+        return view('logs.index')
+              ->with('modal', 'no-modal')
+              ->with('modal_', 'السجلات')
               ->with('tableData', $tableData);
     }
 
@@ -52,8 +44,8 @@ class UserController extends AbstractController {
     public function store(Request $request)
     {
         $data  = $request->all();
-        $user = $this->userService->createCompany($data);
-        return $user;
+        $region = $this->regionService->createRegion($data);
+        return $region;
     }
     /**
      * Edit client.
@@ -64,11 +56,8 @@ class UserController extends AbstractController {
      */
     public function edit(Request $request , $id)
     {
-        $user = $this->userService->getCompany($id);
-        $userRegions = $user->regions()->pluck('regions.id')->toArray();
-        $regions  = $this->regionService->getRegions();
-        $categories  = $this->categoryService->listCategories();
-        return view('companies.form_update',compact('user','userRegions', 'regions', 'categories'));
+        $region = $this->regionService->getRegion($id);
+        return Response::json(['msg'=>'Adding Successfully','data'=> $region->toJson()]);
     }
 
     /**
@@ -84,9 +73,9 @@ class UserController extends AbstractController {
     public function update(Request $request, $id)
     {
         $data  = $request->all();
-        $user = $this->userService->updateCompany($data, $id);
+        $region = $this->regionService->updateRegion($data, $id);
 
-        return $user;
+        return $region;
     }
 
     /**
@@ -98,17 +87,12 @@ class UserController extends AbstractController {
      */
     public function destroy(Request $request, $id)
     {
-        $user = $this->userService->deleteCompany($id);
+        $region = $this->regionService->deleteRegion($id);
 
         if($request->ajax())
         {
             return Response::json(['msg'=>'Deleted Successfully',200]);
         }
         return redirect()->back();
-    }
-
-    public function changePassword(Request $request, $id){
-        $company = $this->userService->getCompany($id);
-        return $this->userService->changePassword($company, $request->all());
     }
 }
